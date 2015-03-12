@@ -1,0 +1,13 @@
+apt-get install ruby1.9.1-dev ruby rubygems build-essential zlib1g zlib1g-dev libxml2 libxml2-dev libxslt-dev locate libreadline6-dev libcurl4-openssl-dev git-core libssl-dev libyaml-dev openssl autoconf libtool ncurses-dev bison curl wget postgresql postgresql-contrib libpq-dev libapr1 libaprutil1 libsvn1 libpcap-dev libsqlite3-dev git nmap
+
+mkdir -p /apps/ && cd /apps/
+git clone https://github.com/helloitsliam/metasploit-framework.git msf
+gem install bundler
+bundle install
+
+su postgres
+createuser msf -P -S -R -D
+createdb -O msf msf
+exit
+
+./msfconsole -L -y config/database.yml -e production
